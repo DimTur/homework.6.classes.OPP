@@ -65,7 +65,7 @@ class Lecturer(Mentor):
 
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
-            print('Такого студента нет')
+            print('Такого лектора нет')
             return
         return self.avg_g < other.avg_g
 
@@ -88,13 +88,13 @@ class Reviewer(Mentor):
 
 # Лекторы и закрепленные за ними курсы
 best_lecturer_1 = Lecturer('Дима', 'Жданов')
-best_lecturer_1.courses_attached += ['Python', 'Git']
+best_lecturer_1.courses_attached += ['Python']
 
 best_lecturer_2 = Lecturer('Иван', 'Иванов')
-best_lecturer_2.courses_attached += ['Python', 'Git']
+best_lecturer_2.courses_attached += ['Git']
 
 best_lecturer_3 = Lecturer('Вася', 'Ишаков')
-best_lecturer_3.courses_attached += ['Python', 'Git']
+best_lecturer_3.courses_attached += ['Python']
 
 # Проверяющие и закрепленные за ними курсы
 cool_reviewer_1 = Reviewer('Гоша', 'Куценко')
@@ -170,4 +170,44 @@ print()
 # Вывод результатf сравнения лекторов по средним оценкам за лекции
 print(f'Результат сравнения лекторов (по средним оценкам за лекции): '
       f'{best_lecturer_1.name} {best_lecturer_1.surname} < {best_lecturer_2.name} {best_lecturer_2.surname} = {best_lecturer_1 > best_lecturer_2}')
+print()
+
+# Список студентов
+student_list = [student_1, student_2, student_3]
+
+# Список лекторов
+lecturer_list = [best_lecturer_1, best_lecturer_2, best_lecturer_3]
+
+
+# Функция подсчета средней оценки за ДЗ для студентов
+
+def student_rating(student_list, course_name):
+    sum_all = 0
+    count_all = 0
+    for student in student_list:
+        if student.courses_in_progress == [course_name]:
+            sum_all += student.avg_g
+            count_all += 1
+    avg_all = round(sum_all / count_all, 1)
+    return avg_all
+
+
+# Функция подсчета средней оценки за лекции для ректоров
+
+def lecturer_rating(lecturer_list, course_name):
+    sum_all = 0
+    count_all = 0
+    for lecturer in lecturer_list:
+        if lecturer.courses_attached == [course_name]:
+            sum_all += lecturer.avg_g
+            count_all += 1
+    avg_all = round(sum_all / count_all, 1)
+    return avg_all
+
+# Результат подсчета средней оценки по всем студентам для конкретного курса
+print(f"Средняя оценка для всех студентов по курсу {'Python'}: {student_rating(student_list, 'Python')}")
+print()
+
+#Результат подсчета средней оценки по всем лекорам для конкретного курса
+print(f"Средняя оценка для всех лекторов по курсу {'Python'}: {lecturer_rating(lecturer_list, 'Python')}")
 print()
